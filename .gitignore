@@ -1,5 +1,7 @@
 dataMatis
 resultats_thomas
-test.r
+output
+*.fastq.gz
+*.bam
 *.csv
 *.pdf
