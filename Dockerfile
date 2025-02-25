@@ -5,16 +5,16 @@ FROM python:3.10-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    wget \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     tar \
-    unzip \
     perl \
     bowtie2 \
     samtools \
     default-jre \
-    && apt-get clean
+    cutadapt \
+    fastqc \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user (e.g., 'bioinfo')
 RUN useradd -m -s /bin/bash bioinfo && \
@@ -44,8 +44,15 @@ RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2
 COPY requirements.txt /home/bioinfo/
 RUN pip install --no-cache-dir -r /home/bioinfo/requirements.txt
 
+# Copy the pipeline script
+COPY run_pipeline.sh /home/bioinfo/run_pipeline.sh
+RUN chmod +x /home/bioinfo/run_pipeline.sh && chown bioinfo:bioinfo /home/bioinfo/run_pipeline.sh
+
 # Switch to the non-root user
 USER bioinfo
+
+# Set working directory
+WORKDIR /home/bioinfo/
 
 # Set default command
 CMD ["bash"]
