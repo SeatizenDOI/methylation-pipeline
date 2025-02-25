@@ -6,13 +6,8 @@ GENOME_DIR="/data/genome"
 
 # Check if input file is provided
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <input_fastq>"
+    echo "Usage: $0 <input_fastq> [-o <output_dir>] [-g <genome_dir>]"
     exit 1
-fi
-
-# Check if input directory is provided
-if [ $# -lt 1 ]; then
-    usage
 fi
 
 INPUT_FILE=$1
@@ -31,19 +26,21 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Unknown option: $1"
-            usage
+            exit 1
             ;;
     esac
 done
 
+# Define output directories
 TRIM_DIR="$OUTPUT_DIR/trim_galore"
 BISMARK_DIR="$OUTPUT_DIR/bismark"
 
-# Create output directories if they don't exist
+# Create necessary directories
 mkdir -p "$TRIM_DIR/reports" "$TRIM_DIR/trimmed_datasets" "$BISMARK_DIR/bams" "$BISMARK_DIR/report"
 
+# Check if the input file exists
 if [ ! -f "$INPUT_FILE" ]; then
-    echo "No FASTQ files found in $INPUT_DIR. Exiting."
+    echo "Error: Input file $INPUT_FILE not found!"
     exit 1
 fi
 
@@ -55,22 +52,34 @@ trim_galore --fastqc -o "$TRIM_DIR" "$INPUT_FILE"
 # Get the trimmed filename (assumes default TrimGalore! naming convention)
 TRIMMED_FILE=$(basename "$INPUT_FILE" .fastq.gz)_trimmed.fq.gz
 
-# Check if trimming was successful
+# Ensure trimming was successful
 if [ ! -f "$TRIM_DIR/$TRIMMED_FILE" ]; then
-    echo "TrimGalore! failed for $INPUT_FILE. Skipping."
-    continue
+    echo "Error: TrimGalore! failed for $INPUT_FILE."
+    exit 1
 fi
 
-# Run Bismark and save results in bismark folder
 echo "Running Bismark alignment on $TRIM_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
 bismark "$GENOME_DIR" -o "$BISMARK_DIR" --fastq "$TRIM_DIR/$TRIMMED_FILE"
 
-# Organise Trim Galore! results
+# Find the latest BAM file in Bismark output
+BAM_FILE=$(find "$BISMARK_DIR" -name "*.bam" | sort -r | head -n 1)
+
+# Ensure Bismark produced a BAM file before proceeding
+if [ -z "$BAM_FILE" ]; then
+    echo "Error: Bismark failed to produce a BAM file."
+    exit 1
+fi
+
+echo "Running Bismark methylation extractor on $BAM_FILE..."
+bismark_methylation_extractor -s --comprehensive -o "$BISMARK_DIR" "$BAM_FILE"
+
+# Organize TrimGalore! results
 mv "$TRIM_DIR"/*.txt "$TRIM_DIR/reports/"
 mv "$TRIM_DIR"/*.fq.gz "$TRIM_DIR/trimmed_datasets/"
 
-# Organise Bismark results
+# Organize Bismark results
 mv "$BISMARK_DIR"/*.txt "$BISMARK_DIR/report/"
 mv "$BISMARK_DIR"/*.bam "$BISMARK_DIR/bams/"
 
-echo "Finished processing $INPUT_FILE. TrimGalore! results are in $TRIM_DIR, Bismark results are in $BISMARK_DIR."
+echo "Finished processing $INPUT_FILE."
+echo "TrimGalore! results are in $TRIM_DIR, Bismark results are in $BISMARK_DIR."
