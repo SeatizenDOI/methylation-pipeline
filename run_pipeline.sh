@@ -61,13 +61,13 @@ if [ ! -f "$TRIM_DIR/$TRIMMED_FILE" ]; then
     continue
 fi
 
-# Organise Trim Galore! results
-mv "$TRIM_DIR"/*.txt "$TRIM_DIR/reports/"
-mv "$TRIM_DIR"/*.fq.gz "$TRIM_DIR/trimmed_datasets/"
-
 # Run Bismark and save results in bismark folder
 echo "Running Bismark alignment on $TRIM_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
 bismark "$GENOME_DIR" -o "$BISMARK_DIR" --fastq "$TRIM_DIR/$TRIMMED_FILE"
+
+# Organise Trim Galore! results
+mv "$TRIM_DIR"/*.txt "$TRIM_DIR/reports/"
+mv "$TRIM_DIR"/*.fq.gz "$TRIM_DIR/trimmed_datasets/"
 
 # Organise Bismark results
 mv "$BISMARK_DIR"/*.txt "$BISMARK_DIR/report/"
