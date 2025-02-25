@@ -38,7 +38,11 @@ RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2
     mv Bismark-* Bismark && \
     chmod -R u+rwx Bismark && \
     chown -R defaultuser:defaultuser Bismark && \
-    ln -s /home/methylation/tools/Bismark/bismark /usr/local/bin/bismark
+    ln -s /home/methylation/tools/Bismark/bismark /usr/local/bin/bismark && \
+    ln -s /home/methylation/tools/Bismark/bismark_methylation_extractor /usr/local/bin/bismark_methylation_extractor
+
+# Set working directory
+WORKDIR /home/methylation/
 
 # Copy the pipeline script
 COPY run_pipeline.sh /home/methylation/run_pipeline.sh
@@ -46,9 +50,6 @@ RUN chmod +x /home/methylation/run_pipeline.sh && chown defaultuser:defaultuser 
 
 # Switch to the non-root user
 USER defaultuser
-
-# Set working directory
-WORKDIR /home/methylation/
 
 # Set default command
 # CMD ["bash", "run_pipeline.sh", "/home/methylation/data/...", "-o", "/home/methylation/output", "-g", "/home/methylation/data/NCBI_genome"]
