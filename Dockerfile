@@ -55,4 +55,5 @@ USER bioinfo
 WORKDIR /home/bioinfo/
 
 # Set default command
-CMD ["bash"]
+# CMD ["bash", "run_pipeline.sh", "/home/bioinfo/data/...", "-o", "/home/bioinfo/output", "-g", "/home/bioinfo/data/NCBI_genome"]
+ENTRYPOINT ["bash", "run_pipeline.sh"]
