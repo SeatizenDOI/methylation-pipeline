@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Default directories
-OUTPUT_DIR="/data/output"
-GENOME_DIR="/data/genome"
+OUTPUT_DIR="/home/methylation/data/output"
+GENOME_DIR="/home/methylation/data/genome"
 
 # Define the usage function
 usage() {
@@ -43,11 +43,8 @@ if [[ -z "$INPUT_FILE" ]]; then
     usage
 fi
 
-TRIM_DIR="$OUTPUT_DIR/trim_galore"
-BISMARK_DIR="$OUTPUT_DIR/bismark"
-
 # Create output directories if they don't exist
-mkdir -p "$TRIM_DIR/reports" "$TRIM_DIR/trimmed_datasets" "$BISMARK_DIR/bams" "$BISMARK_DIR/report"
+mkdir -p "$OUTPUT_DIR/reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams"
 
 if [ ! -f "$INPUT_FILE" ]; then
     echo "Error: Input file $INPUT_FILE not found!"
@@ -57,23 +54,23 @@ fi
 echo "Processing file: $INPUT_FILE"
 
 # Run TrimGalore!
-trim_galore --fastqc -o "$TRIM_DIR" "$INPUT_FILE"
+trim_galore --fastqc -o "$OUTPUT_DIR" "$INPUT_FILE"
 
 # Get the trimmed filename
 TRIMMED_FILE=$(basename "$INPUT_FILE" .fastq.gz)_trimmed.fq.gz
 
 # Check if trimming was successful
-if [ ! -f "$TRIM_DIR/$TRIMMED_FILE" ]; then
+if [ ! -f "$OUTPUT_DIR/$TRIMMED_FILE" ]; then
     echo "TrimGalore! failed for $INPUT_FILE. Skipping."
     exit 1
 fi
 
 # Run Bismark
-echo "Running Bismark alignment on $TRIM_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
-bismark "$GENOME_DIR" -o "$BISMARK_DIR" --fastq "$TRIM_DIR/$TRIMMED_FILE"
+echo "Running Bismark alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
+bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --fastq "$OUTPUT_DIR/$TRIMMED_FILE"
 
 # Find the BAM file produced by Bismark
-BAM_FILE=$(find "$BISMARK_DIR" -maxdepth 1 -name "*.bam" | head -n 1)
+BAM_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "*.bam" | head -n 1)
 
 if [[ -z "$BAM_FILE" ]]; then
     echo "Error: No BAM file found after Bismark alignment!"
@@ -84,9 +81,8 @@ fi
 bismark_methylation_extractor -s --comprehensive "$BAM_FILE"
 
 # Organize results
-mv "$TRIM_DIR"/*.txt "$TRIM_DIR/reports/"
-mv "$TRIM_DIR"/*.fq.gz "$TRIM_DIR/trimmed_datasets/"
-mv "$BISMARK_DIR"/*.txt "$BISMARK_DIR/report/"
-mv "$BISMARK_DIR"/*.bam "$BISMARK_DIR/bams/"
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/reports/"
+mv "$OUTPUT_DIR"/*.fq.gz "$OUTPUT_DIR/trimmed_datasets/"
+mv "$OUTPUT_DIR"/*.bam "$OUTPUT_DIR/bams/"
 
 echo "Finished processing $INPUT_FILE. Results are in $OUTPUT_DIR."
