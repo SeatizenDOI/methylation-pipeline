@@ -44,7 +44,7 @@ if [[ -z "$INPUT_FILE" ]]; then
 fi
 
 # Create output directories if they don't exist
-mkdir -p "$OUTPUT_DIR/reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams"
+mkdir -p "$OUTPUT_DIR/tg_reports" "$OUTPUT_DIR/bismark_reports" "$OUTPUT_DIR/bismark_met_reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams"
 
 if [ ! -f "$INPUT_FILE" ]; then
     echo "Error: Input file $INPUT_FILE not found!"
@@ -65,9 +65,13 @@ if [ ! -f "$OUTPUT_DIR/$TRIMMED_FILE" ]; then
     exit 1
 fi
 
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/tg_reports/"
+
 # Run Bismark
 echo "Running Bismark alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
 bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --fastq "$OUTPUT_DIR/$TRIMMED_FILE"
+
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/bismark_reports/"
 
 # Find the BAM file produced by Bismark
 BAM_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "*.bam" | head -n 1)
@@ -81,8 +85,8 @@ fi
 bismark_methylation_extractor -s --comprehensive "$BAM_FILE"
 
 # Organize results
-mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/reports/"
 mv "$OUTPUT_DIR"/*.fq.gz "$OUTPUT_DIR/trimmed_datasets/"
 mv "$OUTPUT_DIR"/*.bam "$OUTPUT_DIR/bams/"
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/bismark_met_reports/"
 
 echo "Finished processing $INPUT_FILE. Results are in $OUTPUT_DIR."
