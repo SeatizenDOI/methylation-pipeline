@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default directories
-OUTPUT_DIR="/home/methylation/data/output"
+OUTPUT_DIR="/home/methylation/output"
 GENOME_DIR="/home/methylation/data/genome"
 
 # Define the usage function
