@@ -87,7 +87,7 @@ if [[ -z "$BAM_FILE" ]]; then
 fi
 
 # Run Bismark Methylation Extractor
-# bismark_methylation_extractor -s --comprehensive "$BAM_FILE"
+bismark_methylation_extractor --no_header -o "$OUTPUT_DIR" --gzip "$BAM_FILE" 
 
 # Organize results
 mv "$OUTPUT_DIR"/*.fq.gz "$OUTPUT_DIR/trimmed_datasets/"
