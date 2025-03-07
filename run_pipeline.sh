@@ -54,7 +54,7 @@ fi
 echo "Processing file: $INPUT_FILE"
 
 # Run TrimGalore!
-trim_galore --fastqc -o "$OUTPUT_DIR" "$INPUT_FILE"
+trim_galore -o "$OUTPUT_DIR" "$INPUT_FILE"
 
 # Get the trimmed filename
 TRIMMED_FILE=$(basename "$INPUT_FILE" .fastq.gz)_trimmed.fq.gz
@@ -69,7 +69,7 @@ mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/tg_reports/"
 
 # Run Bismark
 echo "Running Bismark alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
-bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --fastq "$OUTPUT_DIR/$TRIMMED_FILE"
+bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --temp_dir "$OUTPUT_DIR" --fastq "$OUTPUT_DIR/$TRIMMED_FILE"
 
 mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/bismark_reports/"
 
