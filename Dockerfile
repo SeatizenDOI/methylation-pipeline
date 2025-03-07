@@ -44,10 +44,6 @@ RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2
 # Set working directory
 WORKDIR /home/methylation/
 
-# Copy the pipeline script
-COPY run_pipeline.sh /home/methylation/run_pipeline.sh
-RUN chmod +x /home/methylation/run_pipeline.sh && chown defaultuser:defaultuser /home/methylation/run_pipeline.sh
-
 # Switch to the non-root user
 USER defaultuser
 
