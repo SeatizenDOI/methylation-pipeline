@@ -73,8 +73,13 @@ bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --temp_dir "$OUTPUT_DIR" --fastq "$OUTPUT
 
 mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/bismark_reports/"
 
-# Find the BAM file produced by Bismark
-BAM_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "*.bam" | head -n 1)
+# Extract the unique identifier from the input file
+BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
+echo "Base name: $BASE_NAME"
+
+# Find the corresponding BAM file
+BAM_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "${BASE_NAME}_trimmed_bismark_bt2.bam" | head -n 1)
+echo "BAM file: $BAM_FILE"
 
 if [[ -z "$BAM_FILE" ]]; then
     echo "Error: No BAM file found after Bismark alignment!"
@@ -82,7 +87,7 @@ if [[ -z "$BAM_FILE" ]]; then
 fi
 
 # Run Bismark Methylation Extractor
-bismark_methylation_extractor -s --comprehensive "$BAM_FILE"
+# bismark_methylation_extractor -s --comprehensive "$BAM_FILE"
 
 # Organize results
 mv "$OUTPUT_DIR"/*.fq.gz "$OUTPUT_DIR/trimmed_datasets/"
