@@ -65,9 +65,13 @@ if [ ! -f "$OUTPUT_DIR/$TRIMMED_FILE" ]; then
     exit 1
 fi
 
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/tg_reports/"
+
 # Run Bismark
 echo "Running Bismark alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
 bismark "$GENOME_DIR" -o "$OUTPUT_DIR" --temp_dir "$OUTPUT_DIR" --fastq "$OUTPUT_DIR/$TRIMMED_FILE"
+
+mv "$OUTPUT_DIR"/*.txt "$OUTPUT_DIR/bismark_reports/"
 
 # Extract the unique identifier from the input file
 BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
