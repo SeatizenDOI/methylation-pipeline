@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Create a non-root user (e.g., 'defaultuser')
 RUN useradd -m -s /bin/bash defaultuser && \
-    mkdir -p /home/methylation/tools /home/methylation/data /home/methylation/output && \
+    mkdir -p /home/methylation/tools /home/methylation/data /home/methylation/output /home/methylation/genomes && \
     chown -R defaultuser:defaultuser /home/methylation
 
 # Set working directory
