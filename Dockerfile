@@ -39,7 +39,8 @@ RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2
     chmod -R u+rwx Bismark && \
     chown -R defaultuser:defaultuser Bismark && \
     ln -s /home/methylation/tools/Bismark/bismark /usr/local/bin/bismark && \
-    ln -s /home/methylation/tools/Bismark/bismark_methylation_extractor /usr/local/bin/bismark_methylation_extractor
+    ln -s /home/methylation/tools/Bismark/bismark_methylation_extractor /usr/local/bin/bismark_methylation_extractor && \
+    ln -s /home/methylation/tools/Bismark/bismark_genome_preparation /usr/local/bin/Bismark/bismark_genome_preparation
 
 # Set working directory
 WORKDIR /home/methylation/
