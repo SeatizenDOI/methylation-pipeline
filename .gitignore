@@ -1,7 +1,17 @@
+# Ignore biological files
+*.fastq.gz
+*.bam
+
+# Ignore output files
+*.csv
+bedGraphs
+
+# Ignore config files
+*.pbs
+
+# Ignore data files
 dataMatis
 resultats_thomas
 output
-*.fastq.gz
-*.bam
-*.csv
+test_scripts
 *.pdf
