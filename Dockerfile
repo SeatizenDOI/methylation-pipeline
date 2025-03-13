@@ -1,5 +1,5 @@
 # Use a lightweight image
-FROM ubuntu:minimal
+FROM ubuntu:24.04
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
