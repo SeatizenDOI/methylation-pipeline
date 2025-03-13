@@ -41,7 +41,7 @@ def process_bedgraph_files(input_folder, threshold=0.5):
 
     # Create a dataframe with selected positions
     methylation_matrix = pd.DataFrame.from_dict(all_data, orient="index", dtype=float)
-    methylation_matrix = methylation_matrix.reindex(columns=sorted(filtered_positions)).fillna("NA")
+    methylation_matrix = methylation_matrix.reindex(columns=sorted(filtered_positions)).fillna(0)
 
     # Reset index and rename the first column to "SampleID"
     methylation_matrix.reset_index(inplace=True)
