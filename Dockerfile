@@ -1,5 +1,5 @@
-# Use a lightweight Python image
-FROM python:3.10-slim
+# Use a lightweight image
+FROM ubuntu:minimal
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
