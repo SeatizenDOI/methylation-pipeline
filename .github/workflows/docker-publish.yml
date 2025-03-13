@@ -26,7 +26,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile.pipeline
           push: true
           tags: mzouari974/methylation-pipeline:latest
 
