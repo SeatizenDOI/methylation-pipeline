@@ -1,23 +1,119 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0" version="26.1.1">
   <diagram name="Page-1" id="90a13364-a465-7bf4-72fc-28e22215d7a0">
-    <mxGraphModel dx="1562" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1838" dy="901" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
-        <mxCell id="NYDG4hR3CcPHMuvstYdw-1" value="FastQ Files passing Illumina Filters (PF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" vertex="1" parent="1">
-          <mxGeometry x="480" y="530" width="120" height="60" as="geometry" />
+        <mxCell id="vuBoMtgki5RaRoc5mydu-30" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="1100" width="320" height="300" as="geometry" />
         </mxCell>
-        <mxCell id="NYDG4hR3CcPHMuvstYdw-2" value="Trimming des séquences (TrimGalore!)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="480" y="600" width="120" height="60" as="geometry" />
+        <mxCell id="vuBoMtgki5RaRoc5mydu-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NYDG4hR3CcPHMuvstYdw-1" target="NYDG4hR3CcPHMuvstYdw-2">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NYDG4hR3CcPHMuvstYdw-3" value="FastQ Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" vertex="1" parent="1">
-          <mxGeometry x="480" y="670" width="120" height="60" as="geometry" />
+        <mxCell id="NYDG4hR3CcPHMuvstYdw-1" value="FastQ Files passing Illumina Filters (PF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" parent="1" vertex="1">
+          <mxGeometry x="500" y="1020" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="NYDG4hR3CcPHMuvstYdw-4" value="&lt;div&gt;Conversion Efficiency Estimation&lt;/div&gt;&lt;div&gt;(Bismark)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="410" y="750" width="120" height="60" as="geometry" />
+        <mxCell id="vuBoMtgki5RaRoc5mydu-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NYDG4hR3CcPHMuvstYdw-2" target="NYDG4hR3CcPHMuvstYdw-3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="NYDG4hR3CcPHMuvstYdw-5" value="&lt;div&gt;Alignment + Methylation Call&lt;/div&gt;&lt;div&gt;(Bismark)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
-          <mxGeometry x="550" y="750" width="120" height="60" as="geometry" />
+        <mxCell id="NYDG4hR3CcPHMuvstYdw-2" value="Sequence Trimming (TrimGalore!)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="500" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="NYDG4hR3CcPHMuvstYdw-3" target="NYDG4hR3CcPHMuvstYdw-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="NYDG4hR3CcPHMuvstYdw-3" target="NYDG4hR3CcPHMuvstYdw-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NYDG4hR3CcPHMuvstYdw-3" value="Trimmed sequences FastQ Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" parent="1" vertex="1">
+          <mxGeometry x="500" y="1220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NYDG4hR3CcPHMuvstYdw-4" value="&lt;div&gt;Conversion Efficiency Estimation&lt;/div&gt;&lt;div&gt;(Bismark)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="420" y="1320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NYDG4hR3CcPHMuvstYdw-5" value="&lt;div&gt;Alignment + Methylation Call&lt;/div&gt;&lt;div&gt;(Bismark)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="580" y="1320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-6" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="360" width="320" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-7" target="vuBoMtgki5RaRoc5mydu-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-7" value="Images" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" vertex="1" parent="1">
+          <mxGeometry x="525" y="320" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-8" target="vuBoMtgki5RaRoc5mydu-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-8" value="Image analysis (HiSeq Control Software)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="500" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-9" target="vuBoMtgki5RaRoc5mydu-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-9" value="Intensity files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" vertex="1" parent="1">
+          <mxGeometry x="515" y="460" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-10" target="vuBoMtgki5RaRoc5mydu-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-10" value="Base calling&lt;br&gt;(Real-Time Analysis software)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="500" y="510" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-11" target="vuBoMtgki5RaRoc5mydu-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-11" value="Demultiplexing&lt;br&gt;(bcl2fastq)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="515" y="590" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-14" value="FastQ files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fillStyle=solid;" vertex="1" parent="1">
+          <mxGeometry x="525" y="690" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-15" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="740" width="320" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-16" target="vuBoMtgki5RaRoc5mydu-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-16" value="Quality checks&lt;br&gt;(Sequencing Analysis Viewer&lt;br&gt;FastQC)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="480" y="760" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-17" target="vuBoMtgki5RaRoc5mydu-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-17" value="Contaminant screening&lt;br&gt;(FastQ Screen)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="495" y="840" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-18" target="NYDG4hR3CcPHMuvstYdw-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-18" value="&lt;div&gt;Illumina Filtering&lt;/div&gt;&lt;div&gt;(Purity Filter)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fillStyle=solid;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="500" y="920" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vuBoMtgki5RaRoc5mydu-14" target="vuBoMtgki5RaRoc5mydu-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="1430" as="sourcePoint" />
+            <mxPoint x="570" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="1430" as="sourcePoint" />
+            <mxPoint x="570" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-31" value="Preprocessing" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="620" y="390" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-32" value="QC" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="660" y="760" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vuBoMtgki5RaRoc5mydu-33" value="&lt;div&gt;Sequence to&amp;nbsp;&lt;/div&gt;&lt;div&gt;Methylation info&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="615" y="1115" width="110" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
