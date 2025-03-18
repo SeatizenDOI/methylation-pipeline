@@ -28,11 +28,3 @@ jobs:
           context: .
           push: true
           tags: mzouari974/methylation-pipeline:latest
-
-      - name: Build and Push Processing Dockerfile
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile.processing
-          push: true
-          tags: mzouari974/methylation-processing:latest
