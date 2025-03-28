@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     tar \
+    git \
     perl \
     bowtie2 \
     samtools \
@@ -29,8 +30,9 @@ RUN git clone https://github.com/guoweilong/cgmaptools.git && \
     cd cgmaptools && \
     chmod +x install.sh && \
     ./install.sh && \
-    echo "export PATH=$(pwd):\$PATH" >> /etc/profile && \
-    cp bin/* /usr/local/bin/
+    echo "export PATH=${pwd}:\$PATH" >> /etc/profile && \
+    cp bin/* /usr/local/bin/ && \
+    cd .. && rm -rf cgmaptools
 
 # Install TrimGalore!
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
