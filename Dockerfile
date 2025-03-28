@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     default-jre \
     cutadapt \
     fastqc \
+    cgmaptools \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user (e.g., 'defaultuser')
@@ -23,6 +24,15 @@ RUN useradd -m -s /bin/bash defaultuser && \
 
 # Set working directory
 WORKDIR /home/methylation/tools
+
+# Install CGmapTools
+RUN git clone https://github.com/guoweilong/cgmaptools.git && \
+    cd cgmaptools && \
+    chmod +x install.sh && \
+    ./install.sh && \
+    echo "export PATH=$(pwd):\$PATH" >> /etc/profile && \
+    cp bin/* /usr/local/bin/ && \
+    cd .. && rm -rf cgmaptools
 
 # Install TrimGalore!
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
