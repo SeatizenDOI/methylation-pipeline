@@ -43,6 +43,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+GENOME_FASTA=$(find "$GENOME_DIR" -name "*.fa" | head -n 1)
+echo "Genome fasta: $GENOME_FASTA"
+
 # Check if genome is prepped; if not, prepare it
 if [[ ! -d "$GENOME_DIR/Bisulfite_Genome" ]]; then
     echo "Bisulfite_Genome directory not found in $GENOME_DIR. Running Bismark genome preparation..."
@@ -92,11 +95,9 @@ else
 
     # Extract the unique identifier from the input file
     BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
-    echo "Base name: $BASE_NAME"
-
+    
     # Find the corresponding BAM file
     BAM_FILE=$(find "$OUTPUT_DIR" -name "${BASE_NAME}_QCfiltered_trimmed_bismark_bt2.bam" | head -n 1)
-    echo "BAM file: $BAM_FILE"
 
     if [[ -z "$BAM_FILE" ]]; then
         echo "Error: No BAM file found after Bismark alignment!"
@@ -106,5 +107,8 @@ fi
 
 # Run Bismark Methylation Extractor
 bismark_methylation_extractor -o "$OUTPUT_DIR" --bedGraph "$BAM_FILE" 
+
+# Convert bismark output to CGmap format
+cgmaptools convert bam2cgmap -b "$BAM_FILE" -g "$GENOME_FASTA" -o "$OUTPUT_DIR"
 
 echo "Finished processing. Results are in $OUTPUT_DIR."
