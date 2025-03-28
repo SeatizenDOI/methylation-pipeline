@@ -1,10 +1,12 @@
 # Ignore biological files
 *.fastq.gz
+*.fq.gz
 *.bam
+genomes
 
 # Ignore output files
 *.csv
-bedGraphs
+bedGraphs*
 
 # Ignore config files
 *.pbs
@@ -15,3 +17,4 @@ resultats_thomas
 output
 test_scripts
 *.pdf
+*_test
