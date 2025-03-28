@@ -1,0 +1,50 @@
+# Use a Python image in the required version range
+FROM python:3.9-slim
+
+# Set environment variables to avoid interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    tar \
+    perl \
+    bowtie2 \
+    samtools \
+    default-jre \
+    cutadapt \
+    fastqc \
+    git \
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user
+RUN useradd -m -s /bin/bash defaultuser && \
+    mkdir -p /home/methylation/tools /home/methylation/data /home/methylation/output /home/methylation/genomes && \
+    chown -R defaultuser:defaultuser /home/methylation
+
+# Set working directory
+WORKDIR /home/methylation/tools
+
+# Install TrimGalore!
+RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
+    tar xvzf trim_galore.tar.gz && \
+    mv TrimGalore-* TrimGalore && \
+    chmod -R u+rwx TrimGalore && \
+    chown -R defaultuser:defaultuser TrimGalore && \
+    ln -s /home/methylation/tools/TrimGalore/trim_galore /usr/local/bin/trim_galore
+
+# Install BSBolt via pip (user install)
+RUN pip install --no-cache-dir --user bsbolt
+
+# Ensure the user's local bin directory is in PATH
+ENV PATH="/home/defaultuser/.local/bin:${PATH}"
+
+# Set working directory
+WORKDIR /home/methylation/
+
+# Switch to the non-root user
+USER defaultuser
+
+# Set default command
+ENTRYPOINT ["bash", "run_pipeline.sh"]
