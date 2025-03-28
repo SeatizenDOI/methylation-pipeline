@@ -22,9 +22,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Bismark Docker Image 
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: mzouari974/methylation-pipeline:latest
+          tags: mzouari974/bismark-methylation-pipeline:latest
+
+      - name: Build and Push BSBolt Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: mzouari974/bsbolt-methylation-pipeline:latest
