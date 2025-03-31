@@ -39,7 +39,8 @@ RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz 
     mv TrimGalore-* TrimGalore && \
     chmod -R u+rwx TrimGalore && \
     chown -R defaultuser:defaultuser TrimGalore && \
-    ln -s /home/methylation/tools/TrimGalore/trim_galore /usr/local/bin/trim_galore
+    ln -s /home/methylation/tools/TrimGalore/trim_galore /usr/local/bin/trim_galore && \
+    rm trim_galore.tar.gz
 
 # Install Bismark
 RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2.tar.gz -o Bismark.tar.gz && \
@@ -49,7 +50,8 @@ RUN curl -fsSL https://github.com/FelixKrueger/Bismark/archive/refs/tags/v0.24.2
     chown -R defaultuser:defaultuser Bismark && \
     ln -s /home/methylation/tools/Bismark/bismark /usr/local/bin/bismark && \
     ln -s /home/methylation/tools/Bismark/bismark_methylation_extractor /usr/local/bin/bismark_methylation_extractor && \
-    ln -s /home/methylation/tools/Bismark/bismark_genome_preparation /usr/local/bin/bismark_genome_preparation
+    ln -s /home/methylation/tools/Bismark/bismark_genome_preparation /usr/local/bin/bismark_genome_preparation && \
+    rm Bismark.tar.gz
 
 # Set working directory
 WORKDIR /home/methylation/
