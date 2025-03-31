@@ -31,8 +31,7 @@ RUN git clone https://github.com/guoweilong/cgmaptools.git && \
     chmod +x install.sh && \
     ./install.sh && \
     echo "export PATH=$(pwd):\$PATH" >> /etc/profile && \
-    cp bin/* /usr/local/bin/ && \
-    cd .. && rm -rf cgmaptools
+    cp bin/* /usr/local/bin/
 
 # Install TrimGalore!
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
