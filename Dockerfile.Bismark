@@ -1,5 +1,5 @@
 # Use a lightweight image
-FROM ubuntu:24.04
+FROM python:3.9-slim
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive

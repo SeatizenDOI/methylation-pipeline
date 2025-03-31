@@ -1,5 +1,5 @@
 # Use a Python image in the required version range
-FROM python:3.9-slim
+FROM ubuntu:24.04
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
