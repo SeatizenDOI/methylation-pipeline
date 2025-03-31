@@ -59,7 +59,7 @@ if [[ ! -d "$GENOME_DIR/Bisulfite_Genome" ]]; then
 fi
 
 # Create output directories if they don't exist
-mkdir -p "$OUTPUT_DIR/tg_reports" "$OUTPUT_DIR/bismark_reports" "$OUTPUT_DIR/bismark_met_reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams" "$OUTPUT_DIR/bedGraphs"
+mkdir -p "$OUTPUT_DIR/reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams" "$OUTPUT_DIR/bedGraphs"
 
 if [[ -n "$DEBUG_BAM" ]]; then
     # Debug mode: Use provided BAM file
@@ -79,7 +79,7 @@ else
     echo "Processing file: $INPUT_FILE"
 
     # Run TrimGalore!
-    trim_galore --rrbs -o "$OUTPUT_DIR" "$INPUT_FILE" 
+    trim_galore -o "$OUTPUT_DIR" "$INPUT_FILE" 
     # Get the trimmed filename
     TRIMMED_FILE=$(basename "$INPUT_FILE" .fastq.gz)_trimmed.fq.gz
 
