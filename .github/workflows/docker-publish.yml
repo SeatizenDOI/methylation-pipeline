@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push Bismark Docker Image 
         uses: docker/build-push-action@v5
         with:
-          file: ./Dockerfile
+          file: ./Dockerfile.Bismark
           context: .
           push: true
           tags: mzouari974/bismark-methylation-pipeline:latest
