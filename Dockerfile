@@ -60,4 +60,4 @@ USER defaultuser
 
 # Set default command
 # CMD ["bash", "run_pipeline.sh", "/home/methylation/data/...", "-o", "/home/methylation/output", "-g", "/home/methylation/data/NCBI_genome"]
-ENTRYPOINT ["bash", "run_pipeline.sh"]
+ENTRYPOINT ["bash", "bismark_pipeline.sh"]

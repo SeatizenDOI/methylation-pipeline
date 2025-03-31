@@ -47,4 +47,4 @@ WORKDIR /home/methylation/
 USER defaultuser
 
 # Set default command
-ENTRYPOINT ["bash", "run_pipeline.sh"]
+ENTRYPOINT ["bash", "bsbolt_pipeline.sh"]
