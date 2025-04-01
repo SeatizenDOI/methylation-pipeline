@@ -26,6 +26,13 @@ RUN useradd -m -s /bin/bash defaultuser && \
 # Set working directory
 WORKDIR /home/methylation/tools
 
+# Install CGmapTools
+RUN git clone https://github.com/guoweilong/cgmaptools.git && \
+    cd cgmaptools && \
+    chmod +x install.sh && \
+    ./install.sh && \
+    cp bin/CGmapFromBAM /usr/local/bin/CGmapFromBAM
+
 # Install TrimGalore!
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
     tar xvzf trim_galore.tar.gz && \
@@ -38,7 +45,7 @@ RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz 
 RUN pip install --no-cache-dir --user bsbolt
 
 # Ensure the user's local bin directory is in PATH
-ENV PATH="/home/defaultuser/.local/bin:${PATH}"
+ENV PATH="$HOME/.local/bin:$PATH"
 
 # Set working directory
 WORKDIR /home/methylation/
