@@ -1,4 +1,4 @@
-# Use a lightweight image
+# Use a Python image in the required version range
 FROM python:3.9-slim
 
 # Set environment variables to avoid interactive prompts
