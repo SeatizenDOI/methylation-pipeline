@@ -31,9 +31,8 @@ WORKDIR /home/methylation/tools
 # Install CGmapTools
 RUN git clone https://github.com/guoweilong/cgmaptools.git /usr/local/src/cgmaptools && \
     cd /usr/local/src/cgmaptools && ./install.sh && \
-    ln -s /usr/local/src/cgmaptools/cgmaptools /usr/local/bin && \
-    ln -s /usr/local/src/cgmaptools/bin /usr/local/bin && \
-    ln -s /usr/local/src/cgmaptools/bin /usr/local/bin/bin
+    ln -s /usr/local/src/cgmaptools/cgmaptools /usr/local/bin/cgmaptools && \
+    ln -s /usr/local/src/cgmaptools/bin/* /usr/local/bin/
 
 # Install TrimGalore!
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
