@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     perl \
     bowtie2 \
+    zlib1g-dev \
     samtools \
+    build-essential \
     default-jre \
     cutadapt \
     fastqc \
