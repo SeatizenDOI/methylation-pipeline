@@ -42,8 +42,9 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
 # Create output directories if they don't exist
-mkdir -p "$OUTPUT_DIR/reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams" "$OUTPUT_DIR/bedGraphs"
+mkdir -p "$OUTPUT_DIR/reports" "$OUTPUT_DIR/trimmed_datasets" "$OUTPUT_DIR/bams"
 
 if [ ! -f "$INPUT_FILE" ]; then
     echo "Error: Input file $INPUT_FILE not found!"
@@ -67,20 +68,28 @@ fi
 BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
 echo "Base name: $BASE_NAME"
 
+# Find fasta file in genome directory
+GENOME_FASTA=$(find "$GENOME_DIR" -name "*.fa" | head -n 1)
+echo "Genome fasta: $GENOME_FASTA"
+
+# Name DB for indexing
+BSBOLT_DB="$GENOME_DIR/BSBOLT_DB"
+echo "DB name: $BSBOLT_DB"
+
 # Run BSBolt
 echo "Running BSBolt alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $GENOME_DIR..."
-python -m bsbolt Align -F1 "$OUTPUT_DIR/$TRIMMED_FILE" -DB "$GENOME_DIR" -O "$BASE_NAME"
+python -m bsbolt Align -F1 "$OUTPUT_DIR/$TRIMMED_FILE" -DB $BSBOLT_DB -O "$OUTPUT_DIR/$BASE_NAME"
 
 # fixmates to prepare for duplicate removal, use -p to disable proper pair check
-samtools fixmate -p -m "$BAM_FILE" "${BASE_NAME}.fixmates.bam"
+samtools fixmate -p -m "$OUTPUT_DIR/${BASE_NAME}.bam" "$OUTPUT_DIR/${BASE_NAME}.fixmates.bam"
 # sort bam by coordinates for duplicate calling
-samtools sort -@ 2 -o "${BASE_NAME}.sorted.bam" "${BASE_NAME}.fixmates.bam"
+samtools sort -@ 2 -o "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" "$OUTPUT_DIR/${BASE_NAME}.fixmates.bam"
 # remove duplicate reads
-samtools markdup "${BASE_NAME}.sorted.bam" "${BASE_NAME}.dup.bam"
+samtools markdup "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" "$OUTPUT_DIR/${BASE_NAME}.dup.bam"
 # index bam file for methylation calling
-samtools index "${BASE_NAME}.dup.bam"
+samtools index "$OUTPUT_DIR/${BASE_NAME}.dup.bam"
 
 # Run Bismark Methylation Extractor
-python -m bsbolt CallMethylation -I "${BASE_NAME}.sorted.bam" -O ${BASE_NAME} -DB ${GENOME_DIR} -t 2 -verbose > "${BASE_NAME}_stats.txt"
+python -m bsbolt CallMethylation -I "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" -O "$OUTPUT_DIR/${BASE_NAME}" -DB ${GENOME_DIR} -t 2 -verbose > "$OUTPUT_DIR/${BASE_NAME}_stats.txt"
 
 echo "Finished processing. Results are in $OUTPUT_DIR."
