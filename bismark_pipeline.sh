@@ -103,10 +103,10 @@ else
         echo "Error: No BAM file found after Bismark alignment!"
         exit 1
     fi
-fi
 
-# Run Bismark Methylation Extractor
-bismark_methylation_extractor -o "$OUTPUT_DIR" --bedGraph "$BAM_FILE" 
+    # Run Bismark Methylation Extractor
+    bismark_methylation_extractor -o "$OUTPUT_DIR" --bedGraph "$BAM_FILE" 
+fi
 
 # Convert bismark output to CGmap format
 cgmaptools convert bam2cgmap -b "$BAM_FILE" -g "$GENOME_FASTA" -o "$OUTPUT_DIR"
