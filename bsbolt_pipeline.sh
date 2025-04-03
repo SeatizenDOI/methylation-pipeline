@@ -68,10 +68,6 @@ fi
 BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
 echo "Base name: $BASE_NAME"
 
-# Find fasta file in genome directory
-GENOME_FASTA=$(find "$GENOME_DIR" -name "*.fa" | head -n 1)
-echo "Genome fasta: $GENOME_FASTA"
-
 # Name DB for indexing
 BSBOLT_DB="$GENOME_DIR/BSBOLT_DB"
 echo "DB name: $BSBOLT_DB"
