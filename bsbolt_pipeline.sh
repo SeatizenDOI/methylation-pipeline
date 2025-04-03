@@ -77,15 +77,20 @@ echo "Running BSBolt alignment on $OUTPUT_DIR/$TRIMMED_FILE using genome from $G
 python -m bsbolt Align -F1 "$OUTPUT_DIR/$TRIMMED_FILE" -DB $BSBOLT_DB -O "$OUTPUT_DIR/$BASE_NAME"
 
 # fixmates to prepare for duplicate removal, use -p to disable proper pair check
+echo "samtools fixmate"
 samtools fixmate -p -m "$OUTPUT_DIR/${BASE_NAME}.bam" "$OUTPUT_DIR/${BASE_NAME}.fixmates.bam"
 # sort bam by coordinates for duplicate calling
+echo "samtools sort"
 samtools sort -@ 2 -o "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" "$OUTPUT_DIR/${BASE_NAME}.fixmates.bam"
 # remove duplicate reads
+echo "samtools markdup"
 samtools markdup "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" "$OUTPUT_DIR/${BASE_NAME}.dup.bam"
 # index bam file for methylation calling
+echo "samtools index"
 samtools index "$OUTPUT_DIR/${BASE_NAME}.dup.bam"
 
-# Run Bismark Methylation Extractor
+# Run BSBolt Methylation Extractor
+echo "Running BSBolt Methylation Extractor on $OUTPUT_DIR/${BASE_NAME}.sorted.bam"
 python -m bsbolt CallMethylation -I "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" -O "$OUTPUT_DIR/${BASE_NAME}" -DB ${GENOME_DIR} -t 2 -verbose > "$OUTPUT_DIR/${BASE_NAME}_stats.txt"
 
 echo "Finished processing. Results are in $OUTPUT_DIR."
