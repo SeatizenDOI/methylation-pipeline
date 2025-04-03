@@ -111,9 +111,9 @@ else
 
     # Run Bismark Methylation Extractor
     bismark_methylation_extractor -o "$OUTPUT_DIR" --bedGraph "$BAM_FILE" 
-fi
+fi 
 
 # Convert bismark output to CGmap format
-cgmaptools convert bam2cgmap -b "$BAM_FILE" -g "$GENOME_FASTA" -o "$OUTPUT_DIR"
+cgmaptools convert bam2cgmap -b "$BAM_FILE" -g "$GENOME_FASTA" -o "$OUTPUT_DIR/$BASE_NAME"
 
 echo "Finished processing. Results are in $OUTPUT_DIR."
