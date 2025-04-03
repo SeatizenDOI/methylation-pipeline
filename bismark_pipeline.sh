@@ -43,7 +43,12 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-GENOME_FASTA=$(find "$GENOME_DIR" -name "*.fa" | head -n 1)
+FASTA_FILES=($(find "$GENOME_DIR" -maxdepth 1 -type f -name "*.fa"))
+if [[ ${#FASTA_FILES[@]} -ne 1 ]]; then
+    echo "Error: Expected exactly one .fa file in $GENOME_DIR, but found ${#FASTA_FILES[@]}."
+    exit 1
+fi
+GENOME_FASTA="${FASTA_FILES[0]}"
 echo "Genome fasta: $GENOME_FASTA"
 
 # Check if genome is prepped; if not, prepare it
