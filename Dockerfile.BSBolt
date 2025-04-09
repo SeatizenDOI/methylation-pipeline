@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     samtools \
     build-essential \
     default-jre \
-    cutadapt \
-    fastqc \
     git \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -35,14 +33,6 @@ RUN git clone https://github.com/guoweilong/cgmaptools.git /usr/local/src/cgmapt
     ln -s /usr/local/src/cgmaptools/bin/* /usr/local/bin/ && \
     mkdir -p /usr/local/bin/bin && \
     ln -s /usr/local/src/cgmaptools/bin/* /usr/local/bin/bin/
-
-# Install TrimGalore!
-RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz && \
-    tar xvzf trim_galore.tar.gz && \
-    mv TrimGalore-* TrimGalore && \
-    chmod -R u+rwx TrimGalore && \
-    chown -R defaultuser:defaultuser TrimGalore && \
-    ln -s /home/methylation/tools/TrimGalore/trim_galore /usr/local/bin/trim_galore
 
 # Install BSBolt via pip (user install)
 RUN pip install --no-cache-dir bsbolt
