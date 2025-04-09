@@ -27,10 +27,6 @@ while [[ $# -gt 0 ]]; do
             GENOME_DIR="$2"
             shift 2
             ;;
-        --debug-bam)
-            DEBUG_BAM="$2"
-            shift 2
-            ;;
         *)
             if [[ -z "$INPUT_FILE" ]]; then
                 INPUT_FILE="$1"
