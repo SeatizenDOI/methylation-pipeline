@@ -7,6 +7,7 @@ genomes
 # Ignore output files
 *.csv
 bedGraphs*
+*_cgmaps
 
 # Ignore config files
 *.pbs
@@ -18,3 +19,4 @@ output
 test_scripts
 *.pdf
 *_test
+*.txt
