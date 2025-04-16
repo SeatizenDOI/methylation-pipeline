@@ -2,12 +2,12 @@
 
 # Default directories
 OUTPUT_DIR="/home/methylation/output"
-GENOME_DIR="/home/methylation/genomes"
+DB_DIR="/home/methylation/DB"
 DEBUG_BAM=""
 
 # Define the usage function
 usage() {
-    echo "Usage: $0 <input_fastq> [-o <output_dir>] [-g <genome_dir>] [--debug-bam <bam_file>]"
+    echo "Usage: $0 <input_fastq> [-f2 <input_fastq2>] [-o <output_dir>] [-d <db_dir>]"
     exit 1
 }
 
@@ -19,12 +19,16 @@ fi
 INPUT_FILE=""
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -f2|--fasta2)
+            INPUT_FILE2="$2"
+            shift 2
+            ;;
         -o|--output)
             OUTPUT_DIR="$2"
             shift 2
             ;;
-        -g|--genome)
-            GENOME_DIR="$2"
+        -d|--db)
+            DB_DIR="$2"
             shift 2
             ;;
         *)
@@ -52,13 +56,14 @@ echo "Processing file: $INPUT_FILE"
 BASE_NAME=$(basename "$INPUT_FILE" | sed -E 's/(_QCfiltered)?\.fastq\.gz//')
 echo "Base name: $BASE_NAME"
 
-# Name DB for indexing
-BSBOLT_DB="$GENOME_DIR/BSBOLT_DB"
-echo "DB name: $BSBOLT_DB"
-
 # Run BSBolt
-echo "Running BSBolt alignment on $INPUT_FILE using genome from $GENOME_DIR..."
-python -m bsbolt Align -F1 "$INPUT_FILE" -DB $BSBOLT_DB -O "$OUTPUT_DIR/$BASE_NAME"
+if [ ! -f "$INPUT_FILE2" ]; then
+    echo "Running BSBolt alignment on $INPUT_FILE using genome from $GENOME_DIR..."
+    python -m bsbolt Align -t 8 -F1 "$INPUT_FILE" -DB $DB_DIR -O "$OUTPUT_DIR/$BASE_NAME" -T 110 >& ${BASE_NAME}.log
+else 
+    echo "Running BSBolt alignment on $INPUT_FILE using genome from $GENOME_DIR..."
+    python -m bsbolt Align -t 8 -F1 "$INPUT_FILE" -F2 "$INPUT_FILE2" -DB $DB_DIR -O "$OUTPUT_DIR/$BASE_NAME" -T 110 >& ${BASE_NAME}.log
+fi
 
 # fixmates to prepare for duplicate removal, use -p to disable proper pair check
 echo "samtools fixmate"
@@ -75,6 +80,6 @@ samtools index "$OUTPUT_DIR/${BASE_NAME}.dup.bam"
 
 # Run BSBolt Methylation Extractor
 echo "Running BSBolt Methylation Extractor on $OUTPUT_DIR/${BASE_NAME}.sorted.bam"
-python -m bsbolt CallMethylation -I "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" -O "$OUTPUT_DIR/${BASE_NAME}" -DB $BSBOLT_DB -t 2 -verbose > "$OUTPUT_DIR/${BASE_NAME}_stats.txt"
+python -m bsbolt CallMethylation -t 8 -BQ 10 -MQ 10 -IO -min 5 -CG -I "$OUTPUT_DIR/${BASE_NAME}.sorted.bam" -O "$OUTPUT_DIR/${BASE_NAME}" -DB $DB_DIR -t 2 -verbose > "$OUTPUT_DIR/${BASE_NAME}_stats.txt"
 
 echo "Finished processing. Results are in $OUTPUT_DIR."
