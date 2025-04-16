@@ -37,3 +37,12 @@ jobs:
           context: .
           push: true
           tags: mzouari974/bsbolt-methylation-pipeline:latest
+
+      - name: Build and Push BSBolt Manual Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          file: ./Dockerfile.BSBoltManual
+          context: .
+          push: true
+          tags: mzouari974/bsbolt-manual-methylation-pipeline:latest
+
